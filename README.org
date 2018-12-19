@@ -17,6 +17,28 @@
 * API NAMES
 
   #+BEGIN_SRC js
+    {
+      "id": "getApi",
+      "result": {
+        "firmware": [
+          "OlfactoryArenaController"
+        ],
+        "verbosity": "NAMES",
+        "functions": [
+          "expose",
+          "hide"
+        ],
+        "properties": [
+          "exposeAngle",
+          "hideAngle"
+        ],
+        "callbacks": [
+          "exposeAll",
+          "hideAll",
+          "toggleAll"
+        ]
+      }
+    }
   #+END_SRC
 
 * API GENERAL

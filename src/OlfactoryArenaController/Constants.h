@@ -16,10 +16,10 @@ namespace olfactory_arena_controller
 namespace constants
 {
 //MAX values must be >= 1, >= created/copied count, < RAM limit
-enum{PROPERTY_COUNT_MAX=1};
+enum{PROPERTY_COUNT_MAX=2};
 enum{PARAMETER_COUNT_MAX=1};
-enum{FUNCTION_COUNT_MAX=1};
-enum{CALLBACK_COUNT_MAX=1};
+enum{FUNCTION_COUNT_MAX=2};
+enum{CALLBACK_COUNT_MAX=3};
 
 extern ConstantString device_name;
 
@@ -32,12 +32,26 @@ extern const modular_server::FirmwareInfo firmware_info;
 
 // Properties
 // Property values must be long, double, bool, long[], double[], bool[], char[], ConstantString *, (ConstantString *)[]
+extern const long channel_count;
+
+extern const double travel_per_unit_pulse_duration_element_default;
+
+extern ConstantString expose_angle_property_name;
+extern const double expose_angle_element_default;
+
+extern ConstantString hide_angle_property_name;
+extern const double hide_angle_element_default;
 
 // Parameters
 
 // Functions
+extern ConstantString expose_function_name;
+extern ConstantString hide_function_name;
 
 // Callbacks
+extern ConstantString expose_all_callback_name;
+extern ConstantString hide_all_callback_name;
+extern ConstantString toggle_all_callback_name;
 
 // Errors
 }
