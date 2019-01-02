@@ -18,7 +18,7 @@ namespace constants
 //MAX values must be >= 1, >= created/copied count, < RAM limit
 enum{PROPERTY_COUNT_MAX=2};
 enum{PARAMETER_COUNT_MAX=1};
-enum{FUNCTION_COUNT_MAX=2};
+enum{FUNCTION_COUNT_MAX=4};
 enum{CALLBACK_COUNT_MAX=3};
 
 extern ConstantString device_name;
@@ -26,9 +26,12 @@ extern ConstantString device_name;
 extern ConstantString firmware_name;
 extern const modular_server::FirmwareInfo firmware_info;
 
+extern const long milliseconds_per_second;
+
 // Pins
 
 // Units
+extern ConstantString seconds_units;
 
 // Properties
 // Property values must be long, double, bool, long[], double[], bool[], char[], ConstantString *, (ConstantString *)[]
@@ -43,9 +46,14 @@ extern ConstantString hide_angle_property_name;
 extern const double hide_angle_element_default;
 
 // Parameters
+extern ConstantString duration_parameter_name;
+extern const long duration_min;
+extern const long duration_max;
 
 // Functions
 extern ConstantString expose_function_name;
+extern ConstantString expose_for_duration_function_name;
+extern ConstantString expose_all_for_duration_function_name;
 extern ConstantString hide_function_name;
 
 // Callbacks

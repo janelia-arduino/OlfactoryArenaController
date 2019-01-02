@@ -4,7 +4,7 @@
 
 * Library Information
   - Name :: OlfactoryArenaController
-  - Version :: 1.0.0
+  - Version :: 1.1.0
   - License :: BSD
   - URL :: https://github.com/janelia-arduino/OlfactoryArenaController
   - Author :: Peter Polidoro
@@ -26,7 +26,12 @@
         "verbosity": "NAMES",
         "functions": [
           "expose",
+          "exposeForDuration",
+          "exposeAllForDuration",
           "hide"
+        ],
+        "parameters": [
+          "duration"
         ],
         "properties": [
           "exposeAngle",

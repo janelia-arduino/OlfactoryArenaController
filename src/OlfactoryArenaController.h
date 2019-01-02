@@ -14,6 +14,8 @@
 #include <ConstantVariable.h>
 #include <Functor.h>
 
+#include <EventController.h>
+
 #include <ModularServer.h>
 #include <ModularDeviceBase.h>
 #include <ServoController.h>
@@ -28,7 +30,10 @@ public:
   virtual void setup();
 
   void expose(size_t channel);
+  void exposeForDuration(size_t channel,
+    size_t duration);
   void exposeAll();
+  void exposeAllForDuration(size_t duration);
   void hide(size_t channel);
   void hideAll();
   bool exposed(size_t channel);
@@ -43,10 +48,15 @@ private:
 
   bool exposed_[olfactory_arena_controller::constants::CHANNEL_COUNT];
 
+  EventController<olfactory_arena_controller::constants::EVENT_COUNT_MAX> event_controller_;
+
   // Handlers
   void updateExposeOrHideAngleHandler(size_t channel);
   void exposeHandler();
+  void exposeForDurationHandler();
+  void exposeAllForDurationHandler();
   void hideHandler();
+  void hideHandler(int channel);
   void exposeAllHandler(modular_server::Pin * pin_ptr);
   void hideAllHandler(modular_server::Pin * pin_ptr);
   void toggleAllHandler(modular_server::Pin * pin_ptr);

@@ -24,6 +24,9 @@ void OlfactoryArenaController::setup()
 
   // Variable Setup
 
+  // Event Controller Setup
+  event_controller_.setup();
+
   // Set Device ID
   modular_server_.setDeviceName(constants::device_name);
 
@@ -60,10 +63,23 @@ void OlfactoryArenaController::setup()
   // Parameters
   modular_server::Parameter & channel_parameter = modular_server_.parameter(servo_controller::constants::channel_parameter_name);
 
+  modular_server::Parameter & duration_parameter = modular_server_.createParameter(constants::duration_parameter_name);
+  duration_parameter.setRange(constants::duration_min,constants::duration_max);
+  duration_parameter.setUnits(constants::seconds_units);
+
   // Functions
   modular_server::Function & expose_function = modular_server_.createFunction(constants::expose_function_name);
   expose_function.attachFunctor(makeFunctor((Functor0 *)0,*this,&OlfactoryArenaController::exposeHandler));
   expose_function.addParameter(channel_parameter);
+
+  modular_server::Function & expose_for_duration_function = modular_server_.createFunction(constants::expose_for_duration_function_name);
+  expose_for_duration_function.attachFunctor(makeFunctor((Functor0 *)0,*this,&OlfactoryArenaController::exposeForDurationHandler));
+  expose_for_duration_function.addParameter(channel_parameter);
+  expose_for_duration_function.addParameter(duration_parameter);
+
+  modular_server::Function & expose_all_for_duration_function = modular_server_.createFunction(constants::expose_all_for_duration_function_name);
+  expose_all_for_duration_function.attachFunctor(makeFunctor((Functor0 *)0,*this,&OlfactoryArenaController::exposeAllForDurationHandler));
+  expose_all_for_duration_function.addParameter(duration_parameter);
 
   modular_server::Function & hide_function = modular_server_.createFunction(constants::hide_function_name);
   hide_function.attachFunctor(makeFunctor((Functor0 *)0,*this,&OlfactoryArenaController::hideHandler));
@@ -98,11 +114,34 @@ void OlfactoryArenaController::expose(size_t channel)
   exposed_[channel] = true;
 }
 
+void OlfactoryArenaController::exposeForDuration(size_t channel,
+  size_t duration)
+{
+  if ((channel >= getChannelCount()) || (event_controller_.eventsAvailable() == 0))
+  {
+    return;
+  }
+  long delay = duration * constants::milliseconds_per_second;
+  EventId event_id = event_controller_.addEventUsingDelay(makeFunctor((Functor1<int> *)0,*this,&OlfactoryArenaController::hideHandler),
+    delay,
+    channel);
+  expose(channel);
+  event_controller_.enable(event_id);
+}
+
 void OlfactoryArenaController::exposeAll()
 {
   for (size_t channel=0; channel<getChannelCount(); ++channel)
   {
     expose(channel);
+  }
+}
+
+void OlfactoryArenaController::exposeAllForDuration(size_t duration)
+{
+  for (size_t channel=0; channel<getChannelCount(); ++channel)
+  {
+    exposeForDuration(channel,duration);
   }
 }
 
@@ -198,10 +237,31 @@ void OlfactoryArenaController::exposeHandler()
   expose(channel);
 }
 
+void OlfactoryArenaController::exposeForDurationHandler()
+{
+  long channel;
+  modular_server_.parameter(servo_controller::constants::channel_parameter_name).getValue(channel);
+  long duration;
+  modular_server_.parameter(olfactory_arena_controller::constants::duration_parameter_name).getValue(duration);
+  exposeForDuration(channel,duration);
+}
+
+void OlfactoryArenaController::exposeAllForDurationHandler()
+{
+  long duration;
+  modular_server_.parameter(olfactory_arena_controller::constants::duration_parameter_name).getValue(duration);
+  exposeAllForDuration(duration);
+}
+
 void OlfactoryArenaController::hideHandler()
 {
   long channel;
   modular_server_.parameter(servo_controller::constants::channel_parameter_name).getValue(channel);
+  hide(channel);
+}
+
+void OlfactoryArenaController::hideHandler(int channel)
+{
   hide(channel);
 }
 

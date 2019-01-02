@@ -13,10 +13,29 @@
         ]
       },
       {
+        "name": "exposeForDuration",
+        "parameters": [
+          "channel",
+          "duration"
+        ]
+      },
+      {
+        "name": "exposeAllForDuration",
+        "parameters": [
+          "duration"
+        ]
+      },
+      {
         "name": "hide",
         "parameters": [
           "channel"
         ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "duration",
+        "type": "long"
       }
     ],
     "properties": [
