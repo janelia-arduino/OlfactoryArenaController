@@ -4,7 +4,7 @@
 
 * Library Information
   - Name :: OlfactoryArenaController
-  - Version :: 1.1.0
+  - Version :: 2.0.0
   - License :: BSD
   - URL :: https://github.com/janelia-arduino/OlfactoryArenaController
   - Author :: Peter Polidoro
@@ -17,33 +17,6 @@
 * API NAMES
 
   #+BEGIN_SRC js
-    {
-      "id": "getApi",
-      "result": {
-        "firmware": [
-          "OlfactoryArenaController"
-        ],
-        "verbosity": "NAMES",
-        "functions": [
-          "expose",
-          "exposeForDuration",
-          "exposeAllForDuration",
-          "hide"
-        ],
-        "parameters": [
-          "duration"
-        ],
-        "properties": [
-          "exposeAngle",
-          "hideAngle"
-        ],
-        "callbacks": [
-          "exposeAll",
-          "hideAll",
-          "toggleAll"
-        ]
-      }
-    }
   #+END_SRC
 
 * API GENERAL

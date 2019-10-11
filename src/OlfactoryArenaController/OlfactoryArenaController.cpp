@@ -24,9 +24,6 @@ void OlfactoryArenaController::setup()
 
   // Variable Setup
 
-  // Event Controller Setup
-  event_controller_.setup();
-
   // Set Device ID
   modular_server_.setDeviceName(constants::device_name);
 
@@ -117,16 +114,7 @@ void OlfactoryArenaController::expose(size_t channel)
 void OlfactoryArenaController::exposeForDuration(size_t channel,
   size_t duration)
 {
-  if ((channel >= getChannelCount()) || (event_controller_.eventsAvailable() == 0))
-  {
-    return;
-  }
-  long delay = duration * constants::milliseconds_per_second;
-  EventId event_id = event_controller_.addEventUsingDelay(makeFunctor((Functor1<int> *)0,*this,&OlfactoryArenaController::hideHandler),
-    delay,
-    channel);
-  expose(channel);
-  event_controller_.enable(event_id);
+  rotateBetween(channel,s)
 }
 
 void OlfactoryArenaController::exposeAll()

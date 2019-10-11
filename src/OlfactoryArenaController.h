@@ -14,8 +14,6 @@
 #include <ConstantVariable.h>
 #include <Functor.h>
 
-#include <EventController.h>
-
 #include <ModularServer.h>
 #include <ModularDeviceBase.h>
 #include <ServoController.h>
@@ -47,8 +45,6 @@ private:
   modular_server::Callback callbacks_[olfactory_arena_controller::constants::CALLBACK_COUNT_MAX];
 
   bool exposed_[olfactory_arena_controller::constants::CHANNEL_COUNT];
-
-  EventController<olfactory_arena_controller::constants::EVENT_COUNT_MAX> event_controller_;
 
   // Handlers
   void updateExposeOrHideAngleHandler(size_t channel);

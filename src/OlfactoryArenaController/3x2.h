@@ -17,7 +17,6 @@ namespace olfactory_arena_controller
 namespace constants
 {
 enum{CHANNEL_COUNT=3};
-enum{EVENT_COUNT_MAX=36};
 
 // Pins
 
