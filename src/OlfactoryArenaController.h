@@ -49,10 +49,12 @@ private:
   // Handlers
   void updateExposeOrHideAngleHandler(size_t channel);
   void exposeHandler();
+  void exposeHandler(int channel);
   void exposeForDurationHandler();
   void exposeAllForDurationHandler();
   void hideHandler();
   void hideHandler(int channel);
+  void dummyHandler(int channel);
   void exposeAllHandler(modular_server::Pin * pin_ptr);
   void hideAllHandler(modular_server::Pin * pin_ptr);
   void toggleAllHandler(modular_server::Pin * pin_ptr);
