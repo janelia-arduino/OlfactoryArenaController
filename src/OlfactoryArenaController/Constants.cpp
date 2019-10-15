@@ -24,8 +24,6 @@ const modular_server::FirmwareInfo firmware_info =
   .version_patch=0,
 };
 
-const long milliseconds_per_second = 1000;
-
 // Pins
 
 // Units

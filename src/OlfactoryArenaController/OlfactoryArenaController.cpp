@@ -114,19 +114,11 @@ void OlfactoryArenaController::expose(size_t channel)
 void OlfactoryArenaController::exposeForDuration(size_t channel,
   size_t duration)
 {
-  long delay = 0;
-  long on_duration = duration * constants::milliseconds_per_second;
-  long period = on_duration + 1;
-  long count = 1;
-  addPwm(channel,
+  expose(channel);
+  long delay = duration * servo_controller::constants::milliseconds_per_second;
+  addEvent(channel,
     delay,
-    period,
-    on_duration,
-    count,
-    makeFunctor((Functor1<int> *)0,*this,&OlfactoryArenaController::exposeHandler),
-    makeFunctor((Functor1<int> *)0,*this,&OlfactoryArenaController::hideHandler),
-    makeFunctor((Functor1<int> *)0,*this,&OlfactoryArenaController::dummyHandler),
-    makeFunctor((Functor1<int> *)0,*this,&OlfactoryArenaController::dummyHandler));
+    makeFunctor((Functor1<int> *)0,*this,&OlfactoryArenaController::hideHandler));
 }
 
 void OlfactoryArenaController::exposeAll()
@@ -237,11 +229,6 @@ void OlfactoryArenaController::exposeHandler()
   expose(channel);
 }
 
-void OlfactoryArenaController::exposeHandler(int channel)
-{
-  expose(channel);
-}
-
 void OlfactoryArenaController::exposeForDurationHandler()
 {
   long channel;
@@ -268,10 +255,6 @@ void OlfactoryArenaController::hideHandler()
 void OlfactoryArenaController::hideHandler(int channel)
 {
   hide(channel);
-}
-
-void OlfactoryArenaController::dummyHandler(int channel)
-{
 }
 
 void OlfactoryArenaController::exposeAllHandler(modular_server::Pin * pin_ptr)
