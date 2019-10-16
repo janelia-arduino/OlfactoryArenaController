@@ -48,6 +48,10 @@ void OlfactoryArenaController::setup()
   travel_per_unit_pulse_duration_property.setDefaultValue(constants::travel_per_unit_pulse_duration_element_default);
   travel_per_unit_pulse_duration_property.setRange(constants::travel_per_unit_pulse_duration_element_default,constants::travel_per_unit_pulse_duration_element_default);
 
+  modular_server::Property & velocity_limit_property = modular_server_.property(servo_controller::constants::velocity_limit_property_name);
+  velocity_limit_property.setDefaultValue(constants::velocity_limit_element_default);
+  velocity_limit_property.setRange(constants::velocity_limit_element_default,constants::velocity_limit_element_default);
+
   modular_server::Property & expose_angle_property = modular_server_.createProperty(constants::expose_angle_property_name,constants::expose_angle_default);
   expose_angle_property.setUnits(servo_controller::constants::degree_units);
   expose_angle_property.setRange(servo_controller::constants::angle_min,servo_controller::constants::angle_max);
@@ -114,11 +118,14 @@ void OlfactoryArenaController::expose(size_t channel)
 void OlfactoryArenaController::exposeForDuration(size_t channel,
   size_t duration)
 {
+  if (channel >= getChannelCount())
+  {
+    return;
+  }
+  expose_durations_[channel] = duration * servo_controller::constants::milliseconds_per_second;
   expose(channel);
-  long delay = duration * servo_controller::constants::milliseconds_per_second;
-  addEvent(channel,
-    delay,
-    makeFunctor((Functor1<int> *)0,*this,&OlfactoryArenaController::hideHandler));
+  setAtTargetPositionFunctor(channel,
+    makeFunctor((Functor1<int> *)0,*this,&OlfactoryArenaController::waitThenHideHandler));
 }
 
 void OlfactoryArenaController::exposeAll()
@@ -255,6 +262,13 @@ void OlfactoryArenaController::hideHandler()
 void OlfactoryArenaController::hideHandler(int channel)
 {
   hide(channel);
+}
+
+void OlfactoryArenaController::waitThenHideHandler(int channel)
+{
+  addEvent(channel,
+    expose_durations_[channel],
+    makeFunctor((Functor1<int> *)0,*this,&OlfactoryArenaController::hideHandler));
 }
 
 void OlfactoryArenaController::exposeAllHandler(modular_server::Pin * pin_ptr)

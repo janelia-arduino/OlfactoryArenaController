@@ -28,6 +28,13 @@ const double travel_per_unit_pulse_duration_default[CHANNEL_COUNT] =
   travel_per_unit_pulse_duration_element_default,
 };
 
+const long velocity_limit_default[CHANNEL_COUNT] =
+{
+  velocity_limit_element_default,
+  velocity_limit_element_default,
+  velocity_limit_element_default,
+};
+
 const double expose_angle_default[CHANNEL_COUNT] =
 {
   expose_angle_element_default,

@@ -32,6 +32,8 @@ CONSTANT_STRING(seconds_units,"s");
 // Properties
 const double travel_per_unit_pulse_duration_element_default = 0.098;
 
+const long velocity_limit_element_default = 50;
+
 CONSTANT_STRING(expose_angle_property_name,"exposeAngle");
 const double expose_angle_element_default = 70;
 

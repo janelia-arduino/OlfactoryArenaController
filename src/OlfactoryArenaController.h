@@ -45,6 +45,7 @@ private:
   modular_server::Callback callbacks_[olfactory_arena_controller::constants::CALLBACK_COUNT_MAX];
 
   bool exposed_[olfactory_arena_controller::constants::CHANNEL_COUNT];
+  long expose_durations_[olfactory_arena_controller::constants::CHANNEL_COUNT];
 
   // Handlers
   void updateExposeOrHideAngleHandler(size_t channel);
@@ -53,6 +54,7 @@ private:
   void exposeAllForDurationHandler();
   void hideHandler();
   void hideHandler(int channel);
+  void waitThenHideHandler(int channel);
   void exposeAllHandler(modular_server::Pin * pin_ptr);
   void hideAllHandler(modular_server::Pin * pin_ptr);
   void toggleAllHandler(modular_server::Pin * pin_ptr);

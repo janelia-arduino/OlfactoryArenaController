@@ -37,6 +37,8 @@ extern const long channel_count;
 
 extern const double travel_per_unit_pulse_duration_element_default;
 
+extern const long velocity_limit_element_default;
+
 extern ConstantString expose_angle_property_name;
 extern const double expose_angle_element_default;
 

@@ -26,6 +26,8 @@ enum{CHANNEL_COUNT=3};
 // Property values must be long, double, bool, long[], double[], bool[], char[], ConstantString *, (ConstantString *)[]
 extern const double travel_per_unit_pulse_duration_default[CHANNEL_COUNT];
 
+extern const long velocity_limit_default[CHANNEL_COUNT];
+
 extern const double expose_angle_default[CHANNEL_COUNT];
 
 extern const double hide_angle_default[CHANNEL_COUNT];
