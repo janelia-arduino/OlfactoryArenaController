@@ -45,12 +45,11 @@ void OlfactoryArenaController::setup()
   channel_count_property.setRange(constants::channel_count,constants::channel_count);
 
   modular_server::Property & travel_per_unit_pulse_duration_property = modular_server_.property(servo_controller::constants::travel_per_unit_pulse_duration_property_name);
-  travel_per_unit_pulse_duration_property.setDefaultValue(constants::travel_per_unit_pulse_duration_element_default);
+  travel_per_unit_pulse_duration_property.setDefaultValue(constants::travel_per_unit_pulse_duration_default);
   travel_per_unit_pulse_duration_property.setRange(constants::travel_per_unit_pulse_duration_element_default,constants::travel_per_unit_pulse_duration_element_default);
 
   modular_server::Property & velocity_limit_property = modular_server_.property(servo_controller::constants::velocity_limit_property_name);
-  velocity_limit_property.setDefaultValue(constants::velocity_limit_element_default);
-  velocity_limit_property.setRange(constants::velocity_limit_element_default,constants::velocity_limit_element_default);
+  velocity_limit_property.setDefaultValue(constants::velocity_limit_default);
 
   modular_server::Property & expose_angle_property = modular_server_.createProperty(constants::expose_angle_property_name,constants::expose_angle_default);
   expose_angle_property.setUnits(servo_controller::constants::degree_units);
@@ -123,9 +122,16 @@ void OlfactoryArenaController::exposeForDuration(size_t channel,
     return;
   }
   expose_durations_[channel] = duration * servo_controller::constants::milliseconds_per_second;
-  expose(channel);
-  setAtTargetPositionFunctor(channel,
-    makeFunctor((Functor1<int> *)0,*this,&OlfactoryArenaController::waitThenHideHandler));
+  if (!exposed_[channel])
+  {
+    expose(channel);
+    setAtTargetPositionFunctor(channel,
+      makeFunctor((Functor1<int> *)0,*this,&OlfactoryArenaController::waitThenHideHandler));
+  }
+  else
+  {
+    waitThenHideHandler(channel);
+  }
 }
 
 void OlfactoryArenaController::exposeAll()
