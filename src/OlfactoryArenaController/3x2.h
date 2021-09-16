@@ -3,7 +3,7 @@
 //
 //
 // Authors:
-// Peter Polidoro peterpolidoro@gmail.com
+// Peter Polidoro peter@polidoro.io
 // ----------------------------------------------------------------------------
 #ifndef OLFACTORY_ARENA_CONTROLLER_3X2_CONSTANTS_H
 #define OLFACTORY_ARENA_CONTROLLER_3X2_CONSTANTS_H
